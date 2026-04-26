@@ -48,7 +48,6 @@ def api_root(request: Request, queryAirportTemp=None, queryStockPrice=None, quer
     try:
         final_result = 0
         
-        # podla toho aky je argument zavolame funkciu
         if queryAirportTemp is not None:
             final_result = get_airport_weather(queryAirportTemp)
             
@@ -64,13 +63,13 @@ def api_root(request: Request, queryAirportTemp=None, queryStockPrice=None, quer
         print("err:", str(e))
         return Response(content=json.dumps("undefined"), media_type="application/json")
 
-    # zistime ci chcu xml alebo json
+    # xml or json
     acc_header = request.headers.get("accept", "")
 
     if "application/xml" in acc_header or "text/xml" in acc_header:
-        # zlozime xml string
+        # xml
         xml_out = "<result>" + str(final_result) + "</result>"
         return Response(content=xml_out, media_type="application/xml")
 
-    # inak vratime json cize len cislo
+    # json
     return Response(content=json.dumps(final_result), media_type="application/json")
