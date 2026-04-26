@@ -43,7 +43,7 @@ def api_root(request: Request, queryAirportTemp=None, queryStockPrice=None, quer
         arg_count = arg_count + 1
         
     if arg_count != 1:
-        return Response(status_code=400) # error 400 ak zle 
+        return Response(content=json.dumps("undefined"), media_type="application/json")
 
     try:
         final_result = 0
@@ -62,7 +62,7 @@ def api_root(request: Request, queryAirportTemp=None, queryStockPrice=None, quer
             
     except Exception as e:
         print("err:", str(e))
-        return Response(status_code=400)
+        return Response(content=json.dumps("undefined"), media_type="application/json")
 
     # zistime ci chcu xml alebo json
     acc_header = request.headers.get("accept", "")
@@ -71,6 +71,8 @@ def api_root(request: Request, queryAirportTemp=None, queryStockPrice=None, quer
         # zlozime xml string
         xml_out = "<result>" + str(final_result) + "</result>"
         return Response(content=xml_out, media_type="application/xml")
-
-    # inak vratime json cize len cislo
-    return Response(content=json.dumps(final_result), media_type="application/json")
+    elif "application/json" in acc_header:
+        # inak vratime json cize len cislo
+        return Response(content=json.dumps(final_result), media_type="application/json")
+    else :
+        return Response(content=json.dumps("undefined"), media_type="application/json")
