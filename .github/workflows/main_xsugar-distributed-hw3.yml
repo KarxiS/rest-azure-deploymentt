@@ -65,4 +65,4 @@ jobs:
         with:
           app-name: 'xsugar-distributed-hw3'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A5122A31A38B4B36B27B7983D9568B8C }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EDFD2A64D6A844F39E5497D16DFFC75D }}
