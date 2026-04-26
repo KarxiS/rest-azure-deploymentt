@@ -71,8 +71,6 @@ def api_root(request: Request, queryAirportTemp=None, queryStockPrice=None, quer
         # zlozime xml string
         xml_out = "<result>" + str(final_result) + "</result>"
         return Response(content=xml_out, media_type="application/xml")
-    elif "application/json" in acc_header:
-        # inak vratime json cize len cislo
-        return Response(content=json.dumps(final_result), media_type="application/json")
-    else :
-        return Response(content=json.dumps("undefined"), media_type="application/json")
+
+    # inak vratime json cize len cislo
+    return Response(content=json.dumps(final_result), media_type="application/json")
